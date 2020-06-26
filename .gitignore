@@ -291,3 +291,6 @@ pip-log.txt
 
 # Dependency file
 *.d
+
+# Bazel
+/bazel-*

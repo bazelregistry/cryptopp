@@ -1,0 +1,17 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "cryptopp",
+    hdrs = glob(["*.h"]) + [
+        "algebra.cpp",
+        "eccrypto.cpp",
+        "eprecomp.cpp",
+        "strciphr.cpp",
+        "polynomi.cpp",
+    ],
+    srcs = glob(["*.cpp"]) + [
+        "x64dll.asm",
+    ],
+)

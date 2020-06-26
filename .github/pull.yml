@@ -1,0 +1,7 @@
+version: "1"
+rules:
+- base: master
+  upstream: weidai11:cryptopp
+  mergeMethod: rebase
+  conflictReviewers:
+  - zaucy
