@@ -206,7 +206,7 @@
 
 // C++17 uncaught_exceptions: MS at VS2015 (19.00); GCC at 6.0; Clang at 3.5; Intel 18.0.
 // Clang and __EXCEPTIONS see http://releases.llvm.org/3.6.0/tools/clang/docs/ReleaseNotes.html
-#if defined(__clang__)
+#if defined(__clang__) && !(defined(CRYPTOPP_CLANG_CL))
 # if __EXCEPTIONS && __has_feature(cxx_exceptions)
 #  if __cpp_lib_uncaught_exceptions
 #   define CRYPTOPP_CXX17_EXCEPTIONS 1

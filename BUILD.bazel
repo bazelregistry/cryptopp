@@ -26,6 +26,7 @@ _copts = select({
 cc_library(
     name = "cryptopp",
     copts = _copts,
+    defines = ["CRYPTOPP_DISABLE_ASM=1"],
     hdrs = glob(["*.h"]) + [
         "algebra.cpp",
         "eccrypto.cpp",
@@ -35,5 +36,6 @@ cc_library(
     ],
     srcs = glob(["*.cpp"]) + [
         "x64dll.asm",
+        "x64masm.asm",
     ],
 )
