@@ -39,7 +39,7 @@
 // Also see https://bugs.llvm.org/show_bug.cgi?id=39895 .
 // #define CRYPTOPP_DISABLE_MIXED_ASM 1
 
-#if defined(__clang__)
+#if defined(__clang__) && !defined(_MSC_VER)
 # undef CRYPTOPP_DISABLE_MIXED_ASM
 # define CRYPTOPP_DISABLE_MIXED_ASM 1
 #endif

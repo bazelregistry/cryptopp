@@ -1,31 +1,20 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 package(default_visibility = ["//visibility:public"])
 
-config_setting(
-    name = "clang",
-    values = {"compiler": "clang-cl"},
-)
-
-_copts = select({
-    ":clang": [
-        "-msse2",
-        "-msse3",
-        "-mssse3",
-        "-msse4.1",
-        "-msse4.2",
-        "-mpclmul",
-        "-maes",
-        "-mavx",
-        "-mavx2",
-        "-msha",
-    ],
-    "//conditions:default": [],
-})
+# Rename .asm to .S so that it will be handled with the C preprocessor.
+[copy_file(
+    name = "rename_%s" % name,
+    src = "%s.asm" % name,
+    out = "%s.S" % name,
+) for name in [
+    "x64dll",
+    "x64masm",
+]]
 
 cc_library(
     name = "cryptopp",
-    copts = _copts,
     defines = ["CRYPTOPP_DISABLE_ASM=1"],
     hdrs = glob(["*.h"]) + [
         "algebra.cpp",
@@ -35,7 +24,7 @@ cc_library(
         "polynomi.cpp",
     ],
     srcs = glob(["*.cpp"]) + [
-        "x64dll.asm",
-        "x64masm.asm",
+        "x64dll.S",
+        "x64masm.S",
     ],
 )
