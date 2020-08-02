@@ -16,6 +16,7 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "cryptopp",
     defines = ["CRYPTOPP_DISABLE_ASM=1"],
+    includes = ["."],
     hdrs = glob(["*.h"]) + [
         "algebra.cpp",
         "eccrypto.cpp",
