@@ -3,9 +3,37 @@ load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 package(default_visibility = ["//visibility:public"])
 
+config_setting(
+    name = "compiler_cl",
+    constraint_values = ["@bazel_tools//platforms:windows"],
+)
+
+config_setting(
+    name = "compiler_clang_cl",
+    values = {"compiler": "clang-cl"},
+    constraint_values = ["@bazel_tools//platforms:windows"],
+)
+
+_clang_copts = [
+    # disable all warnings for upstream
+    "-w"
+]
+
+_msvc_copts = [
+    # disable all warnings for upstream
+    "/w",
+]
+
+_copts = select({
+    ":compiler_cl": _msvc_copts,
+    ":compiler_clang_cl": _msvc_copts + ["-Xclang " + f for f in _clang_copts],
+    "//conditions:default": _clang_copts,
+})
+
 # Rename .asm to .S so that it will be handled with the C preprocessor.
 [copy_file(
     name = "rename_%s" % name,
+    visibility = ["//visibility:public"],
     src = "%s.asm" % name,
     out = "%s.S" % name,
 ) for name in [
@@ -14,9 +42,20 @@ package(default_visibility = ["//visibility:public"])
 ]]
 
 cc_library(
+    name = "cryptopp_asm",
+    copts = [],
+    srcs = [
+        "x64dll.S",
+        "x64masm.S",
+    ],
+)
+
+cc_library(
     name = "cryptopp",
+    visibility = ["//visibility:public"],
     defines = ["CRYPTOPP_DISABLE_ASM=1"],
     includes = ["."],
+    copts = _copts,
     hdrs = glob(["*.h"]) + [
         "algebra.cpp",
         "eccrypto.cpp",
@@ -24,8 +63,6 @@ cc_library(
         "strciphr.cpp",
         "polynomi.cpp",
     ],
-    srcs = glob(["*.cpp"], exclude = ["fipstest.cpp"]) + [
-        "x64dll.S",
-        "x64masm.S",
-    ],
+    srcs = glob(["*.cpp"], exclude = ["fipstest.cpp"]),
+    deps = [":cryptopp_asm"],
 )
