@@ -5,7 +5,7 @@ package(default_visibility = ["//visibility:public"])
 
 _clang_copts = [
     # disable all warnings for upstream
-    "-w"
+    "-w",
 ]
 
 _msvc_copts = [
@@ -53,5 +53,5 @@ cc_library(
         "polynomi.cpp",
     ],
     srcs = glob(["*.cpp"], exclude = ["fipstest.cpp"]),
-    deps = [":cryptopp_asm"],
+    # deps = [":cryptopp_asm"],
 )

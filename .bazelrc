@@ -1,0 +1,17 @@
+# Automatic configuration picker
+common --enable_platform_specific_config
+
+build --cxxopt=-std=c++20
+
+build:windows --compiler=clang-cl
+build:windows --cxxopt=-fcolor-diagnostics
+build:windows --cxxopt=-fansi-escape-codes
+build:windows --cxxopt=/D_HAS_DEPRECATED_RESULT_OF=1
+build:windows --cxxopt=-Xclang
+build:windows --cxxopt=/Zc:__cplusplus
+build:windows --copt=/experimental:preprocessor
+build:windows --host_copt=/experimental:preprocessor
+
+build:linux --crosstool_top=@llvm_toolchain//:toolchain
+build:linux --cxxopt=-stdlib=libstdc++
+build:linux --linkopt=-lstdc++
