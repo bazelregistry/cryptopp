@@ -3,17 +3,6 @@ load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 package(default_visibility = ["//visibility:public"])
 
-config_setting(
-    name = "compiler_cl",
-    constraint_values = ["@bazel_tools//platforms:windows"],
-)
-
-config_setting(
-    name = "compiler_clang_cl",
-    values = {"compiler": "clang-cl"},
-    constraint_values = ["@bazel_tools//platforms:windows"],
-)
-
 _clang_copts = [
     # disable all warnings for upstream
     "-w"
@@ -25,8 +14,8 @@ _msvc_copts = [
 ]
 
 _copts = select({
-    ":compiler_cl": _msvc_copts,
-    ":compiler_clang_cl": _msvc_copts + ["-Xclang " + f for f in _clang_copts],
+    "@bazel_tools//tools/cpp:msvc": _msvc_copts,
+    "@bazel_tools//tools/cpp:clang-cl": _msvc_copts + ["-Xclang " + f for f in _clang_copts],
     "//conditions:default": _clang_copts,
 })
 
