@@ -52,7 +52,11 @@ cc_library(
         "strciphr.cpp",
         "polynomi.cpp",
     ],
-    srcs = glob(["*.cpp"], exclude = ["fipstest.cpp"]),
+    srcs = glob(["*.cpp"], exclude = [
+        "test.cpp",
+        "fipstest.cpp",
+        "dlltest.cpp",
+    ]),
     deps = select({
         "@bazel_tools//tools/cpp:msvc": [":cryptopp_asm"],
         "@bazel_tools//tools/cpp:clang-cl": [":cryptopp_asm"],
