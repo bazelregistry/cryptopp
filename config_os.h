@@ -31,7 +31,8 @@
 // discussed at http://github.com/weidai11/cryptopp/issues/147.
 #if (defined(_MSC_VER) && defined(__clang__) && \
    !(defined( __clang_analyzer__)) && !defined(__INTEL_LLVM_COMPILER))
-# error: "Unsupported configuration"
+// # error: "Unsupported configuration"
+#define CRYPTOPP_CLANG_CL
 #endif
 
 // Windows platform
