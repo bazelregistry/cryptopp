@@ -262,6 +262,12 @@
     <ClCompile Include="keccak_simd.cpp" />
     <ClCompile Include="lea.cpp" />
     <ClCompile Include="lea_simd.cpp" />
+    <ClCompile Include="lsh256.cpp" />
+    <ClCompile Include="lsh256_sse.cpp" />
+    <ClCompile Include="lsh256_avx.cpp" />
+    <ClCompile Include="lsh512.cpp" />
+    <ClCompile Include="lsh512_sse.cpp" />
+    <ClCompile Include="lsh512_avx.cpp" />
     <ClCompile Include="luc.cpp" />
     <ClCompile Include="mars.cpp" />
     <ClCompile Include="marss.cpp" />
@@ -315,9 +321,7 @@
     <ClCompile Include="shark.cpp" />
     <ClCompile Include="sharkbox.cpp" />
     <ClCompile Include="simeck.cpp" />
-    <ClCompile Include="simeck_simd.cpp" />
     <ClCompile Include="simon.cpp" />
-    <ClCompile Include="simon64_simd.cpp" />
     <ClCompile Include="simon128_simd.cpp" />
     <ClCompile Include="simple.cpp" />
     <ClCompile Include="skipjack.cpp" />
@@ -326,7 +330,6 @@
     <ClCompile Include="sm4_simd.cpp" />
     <ClCompile Include="sosemanuk.cpp" />
     <ClCompile Include="speck.cpp" />
-    <ClCompile Include="speck64_simd.cpp" />
     <ClCompile Include="speck128_simd.cpp" />
     <ClCompile Include="square.cpp" />
     <ClCompile Include="squaretb.cpp" />
@@ -487,6 +490,7 @@
     <ClInclude Include="keccak.h" />
     <ClInclude Include="lubyrack.h" />
     <ClInclude Include="lea.h" />
+    <ClInclude Include="lsh.h" />
     <ClInclude Include="luc.h" />
     <ClInclude Include="mars.h" />
     <ClInclude Include="md2.h" />
