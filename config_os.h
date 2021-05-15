@@ -58,7 +58,7 @@
 #endif
 
 // Microsoft compilers
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(CRYPTOPP_CLANG_CL)
 	#define CRYPTOPP_NO_VTABLE __declspec(novtable)
 #else
 	#define CRYPTOPP_NO_VTABLE
